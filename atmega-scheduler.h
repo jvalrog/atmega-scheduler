@@ -32,7 +32,7 @@
 #define SCHEDULER_PRESCALER 5
 
 // number of ticks for a specific number of seconds (64ns * 62500 = 4sec)
-#define SCHEDULER_TICKS 62500
+#define SCHEDULER_TICKS 62500U
 
 // number of seconds for each timer interrupt (result from above)
 #define SCHEDULER_PERIOD 4

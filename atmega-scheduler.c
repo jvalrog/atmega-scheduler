@@ -65,9 +65,11 @@ int16_t task_add(uint8_t hour, uint8_t minutes, void (*f)()) {
 	for(index=0; index<SCHEDULER_MAX_TASKS; index++) {
 		task = &_sched_tasks[index];
 		if (task->task == NULL) {
+			TIMSK1 = 0;
 			task->hour = hour;
 			task->minutes = minutes;
 			task->task = f;
+			TIMSK1 = 2;
 			return index;
 		}
 	}
@@ -79,8 +81,10 @@ void task_del(int16_t index) {
 }
 
 void task_set(int16_t index, uint8_t hour, uint8_t minutes) {
+	TIMSK1 = 0;
 	_sched_tasks[index].hour = hour;
 	_sched_tasks[index].minutes = minutes;
+	TIMSK1 = 2;
 }
 
 ISR(TIMER1_COMPA_vect) {

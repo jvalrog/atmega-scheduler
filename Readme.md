@@ -6,7 +6,8 @@
 
 With this scheduler you can run any function at any time, every day. It uses Timer1 available on most micros.
 
-- Configuring the scheduler is done by defined constants in header file `atmega-scheduler.h`:
+- Configuring the scheduler is done by defined constants in header file `atmega-scheduler.h`. By default it's
+preconfigured for 16Mhz, like the Arduino:
 
 	- Set the Timer1 prescaler
 	
@@ -14,9 +15,9 @@ With this scheduler you can run any function at any time, every day. It uses Tim
 			
 	- Set a fixed number of ticks for register OCR1A
 	
-			#define SCHEDULER_TICKS 62500
+			#define SCHEDULER_TICKS 62500U
 		
-	- Set number of seconds that represents OCR1A with current prescaler
+	- Set number of seconds that represents OCR1A top value with current prescaler
 	
 			#define SCHEDULER_PERIOD 4
 
@@ -29,7 +30,7 @@ With this scheduler you can run any function at any time, every day. It uses Tim
 
 	- `scheduler_init` is the initialization function that resets the internal array of tasks and sets initial time.
 	You call this function only once.
-	- `scheduler_set` allows you to set hours and minutes at any time (using wired buttons for example).
+	- `scheduler_set` allows you to set scheduler hours and minutes at any time (using wired buttons for example).
 	
 - Managing tasks:
 
