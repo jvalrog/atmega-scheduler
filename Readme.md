@@ -20,19 +20,21 @@ With this scheduler you can run any function at any time, every day. It uses Tim
 	
 			#define SCHEDULER_PERIOD 4
 
+## Usage
+
 - Initializing the scheduler:
 
-		void scheduler_init(uint8_t hour, uint8_t minutes);
-		void scheduler_set(uint8_t hour, uint8_t minutes);
+		void scheduler_init(uint8_t hour, uint8_t minutes)
+		void scheduler_set(uint8_t hour, uint8_t minutes)
 
-	- `scheduler_init` is the first function to initialize the scheduler. You set the initial hour and minutes.
+	- `scheduler_init` is the initialization function that resets the internal array of tasks and sets initial time.
 	- `scheduler_set` allows you to set hours and minutes at any time (using wired buttons for example).
 	
-- Using the scheduler:
+- Managing tasks:
 
-		int16_t task_add(uint8_t hour, uint8_t minutes, void (*f)());
-		void task_del(int16_t index);
-		void task_set(int16_t index, uint8_t hour, uint8_t minutes);
+		int16_t task_add(uint8_t hour, uint8_t minutes, void (*f)())
+		void task_del(int16_t index)
+		void task_set(int16_t index, uint8_t hour, uint8_t minutes)
 
 	- With `task_add` you add tasks to the scheduler. Set the hour, minutes and function to execute. Return value
 	is the task index for later usage.
