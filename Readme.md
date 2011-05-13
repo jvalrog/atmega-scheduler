@@ -28,6 +28,7 @@ With this scheduler you can run any function at any time, every day. It uses Tim
 		void scheduler_set(uint8_t hour, uint8_t minutes)
 
 	- `scheduler_init` is the initialization function that resets the internal array of tasks and sets initial time.
+	You call this function only once.
 	- `scheduler_set` allows you to set hours and minutes at any time (using wired buttons for example).
 	
 - Managing tasks:
