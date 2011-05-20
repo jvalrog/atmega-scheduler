@@ -28,7 +28,7 @@
 
 // Change those parameters for frequencies different to 16Mhz
 
-// timer1 prescaler (5 = 1024)
+// timer1 prescaler (5 == 1024)
 #define SCHEDULER_PRESCALER 5
 
 // number of ticks for a specific number of seconds (64ns * 62500 = 4sec)

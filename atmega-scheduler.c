@@ -35,7 +35,8 @@ volatile struct _sched_task_t _sched_tasks[SCHEDULER_MAX_TASKS];
 void scheduler_init(uint8_t hour, uint8_t minutes) {
 	int16_t index;
 	
-	TIMSK1 = 0;
+	TIMSK1 &= ~(1<<OCIE1A);
+	
 	for(index=0; index<SCHEDULER_MAX_TASKS; index++)
 		_sched_tasks[index].task = NULL;
 	
@@ -47,15 +48,15 @@ void scheduler_init(uint8_t hour, uint8_t minutes) {
 	TCCR1A = 0;
 	TCCR1B = SCHEDULER_PRESCALER | (1<<WGM12);
 	TCNT1 = 0;
-	TIMSK1 = 2;
+	TIMSK1 |= (1<<OCIE1A);
 }
 
 void scheduler_set(uint8_t hour, uint8_t minutes) {
-	TIMSK1 = 0;
+	TIMSK1 &= ~(1<<OCIE1A);
 	_sched_hours = hour;
 	_sched_minutes = minutes;
 	_sched_seconds = 0;
-	TIMSK1 = 2;
+	TIMSK1 |= (1<<OCIE1A);
 }
 
 int16_t task_add(uint8_t hour, uint8_t minutes, void (*f)()) {
@@ -65,11 +66,11 @@ int16_t task_add(uint8_t hour, uint8_t minutes, void (*f)()) {
 	for(index=0; index<SCHEDULER_MAX_TASKS; index++) {
 		task = &_sched_tasks[index];
 		if (task->task == NULL) {
-			TIMSK1 = 0;
+			TIMSK1 &= ~(1<<OCIE1A);
 			task->hour = hour;
 			task->minutes = minutes;
 			task->task = f;
-			TIMSK1 = 2;
+			TIMSK1 |= (1<<OCIE1A);
 			return index;
 		}
 	}
@@ -81,17 +82,16 @@ void task_del(int16_t index) {
 }
 
 void task_set(int16_t index, uint8_t hour, uint8_t minutes) {
-	TIMSK1 = 0;
+	TIMSK1 &= ~(1<<OCIE1A);
 	_sched_tasks[index].hour = hour;
 	_sched_tasks[index].minutes = minutes;
-	TIMSK1 = 2;
+	TIMSK1 |= (1<<OCIE1A);
 }
 
 ISR(TIMER1_COMPA_vect) {
 	int16_t index;
 	volatile struct _sched_task_t *task;
 
-	TIMSK1 = 0;
 	_sched_seconds += SCHEDULER_PERIOD;
 	if (_sched_seconds >= 60) {
 		_sched_seconds = _sched_seconds % 60;
@@ -108,5 +108,4 @@ ISR(TIMER1_COMPA_vect) {
 				task->task();
 		}
 	}
-	TIMSK1 = 2;
 }

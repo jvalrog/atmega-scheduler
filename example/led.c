@@ -14,19 +14,28 @@ void main() {
 	DDRB = 0xff;
 	PORTB = 0;
 	
-	// initialize scheduler time as 9:59
-	scheduler_init(9, 59);
+	// In this example you will see that PORTB turns ON after 1 minute
+	// and will turn OFF after 2 minutes, repeating it every day.
 	
-	// turn led on at 10:00 every day
-	task_add(10, 00, led_on);
+	// You can synchronize your device by setting scheduler init time
+	// to 10:00AM (for example) and then hitting your device's reset at 10:00AM.
+	//
+	// By wiring some 7-segment displays and some push buttons, you can set
+	// the time using `scheduler_set` as a normal watch.
 	
-	// turn led off at 10:01 every day
-	task_add(10, 01, led_off);
+	// initialize scheduler time as 10:30
+	scheduler_init(10, 30);
+	
+	// turn led on at 10:31
+	task_add(10, 31, led_on);
+	
+	// turn led off at 10:32
+	task_add(10, 32, led_off);
 	
 	// enable global interrupts
 	sei();
 	
 	while(1) {
-		// do nothing
+		// your code goes here
 	}
 }
