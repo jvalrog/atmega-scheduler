@@ -26,16 +26,13 @@
 #include <stddef.h>
 #include <avr/interrupt.h>
 
-// Change those parameters for frequencies different to 16Mhz
+// Predefined Timer1 constants for 16MHz clock
 
-// timer1 prescaler (5 == 1024)
+// timer1 prescaler
 #define SCHEDULER_PRESCALER 5
 
-// number of ticks for a specific number of seconds (64ns * 62500 = 4sec)
-#define SCHEDULER_TICKS 62500U
-
-// number of seconds for each timer interrupt (result from above)
-#define SCHEDULER_PERIOD 4
+// number of ticks needed to define 1 second with timer1
+#define SCHEDULER_TICKS 15625U
 
 // maximun number of tasks to manage (save ram)
 #define SCHEDULER_MAX_TASKS 5

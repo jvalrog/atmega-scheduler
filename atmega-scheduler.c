@@ -92,9 +92,9 @@ ISR(TIMER1_COMPA_vect) {
 	int16_t index;
 	volatile struct _sched_task_t *task;
 
-	_sched_seconds += SCHEDULER_PERIOD;
+	_sched_seconds += 1;
 	if (_sched_seconds >= 60) {
-		_sched_seconds = _sched_seconds % 60;
+		_sched_seconds = _sched_seconds - 60;
 		_sched_minutes++;
 		if (_sched_minutes == 60) {
 			_sched_minutes = 0;
