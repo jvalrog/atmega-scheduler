@@ -86,7 +86,9 @@ preconfigured for 16Mhz, like the Arduino:
 
 ## Running it in Arduino
 
-Just rename `atmega-scheduler.c` to `atmega-scheduler.cpp` and install it as a normal library.
+1. Download the source code by using the Download Button on this page
+2. Rename and install the library as: `{arduino_path}/libraries/AtmegaScheduler`
+3. Open Arduino and go to "Import Library" option. Choose AtmegaScheduler from menu.
 
 ## Atmel Model Support
 

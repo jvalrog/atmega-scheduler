@@ -22,6 +22,10 @@
 #ifndef atmega_scheduler_h
 #define atmega_scheduler_h
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <avr/io.h>
 #include <stddef.h>
 #include <avr/interrupt.h>
@@ -37,11 +41,16 @@
 // maximun number of tasks to manage (save ram)
 #define SCHEDULER_MAX_TASKS 5
 
+
 void scheduler_init(uint8_t hour, uint8_t minutes);
 void scheduler_set(uint8_t hour, uint8_t minutes);
 
 int16_t task_add(uint8_t hour, uint8_t minutes, void (*f)());
 void task_del(int16_t index);
 void task_set(int16_t index, uint8_t hour, uint8_t minutes);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
